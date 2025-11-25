@@ -1,0 +1,41 @@
+package routes
+
+import (
+	"log"
+	"project-management/config"
+	"project-management/controllers"
+	"project-management/utils"
+
+	jwtware "github.com/gofiber/contrib/jwt"
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+)
+
+func Setup(app *fiber.App, uc *controllers.UserController) {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error load .env file")
+	}
+
+	app.Get("/v1/test", func(c *fiber.Ctx) error {
+		return c.SendString("Hello World")
+	})
+
+	app.Post("/v1/auth/register", uc.Register)
+	app.Post("/v1/auth/login", uc.Login)
+
+	// protected routes
+	api := app.Group("/api/v1", jwtware.New(jwtware.Config{
+		SigningKey: jwtware.SigningKey{Key: []byte(config.AppConfig.JWTSecret)},
+		ContextKey: "user",
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return utils.Unauthorize(c, "Unauthorized", err.Error())
+		},
+	}))
+
+	userGroup := api.Group("/users")
+	userGroup.Get("/page", uc.GetUserPagination)
+	userGroup.Get("/:id", uc.GetUser)
+	userGroup.Put("/:id", uc.UpdateUser)
+	userGroup.Delete("/:id", uc.DeleteUser)
+}

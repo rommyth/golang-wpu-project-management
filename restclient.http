@@ -1,0 +1,42 @@
+@baseUrl = http://localhost:3000
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZTMuY29tIiwiZXhwIjoxNzY0MDAzNzE5LCJwdWJfaWQiOiI1MjA2YzZlMi0yMTEyLTRmMGItYmM2Mi03MjA5N2U1Y2MzM2IiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjJ9.G6xriCdY7Vjlvkg0kZVuAhok_XwUKM2tSouPL9BP_6w
+### Register
+POST {{baseUrl}}/v1/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe 3",
+    "email": "john@example3.com",
+    "password": "password",
+    "role": "user"
+}
+
+### Login
+POST {{baseUrl}}/v1/auth/login
+Content-Type: application/json
+
+{    
+    "email": "john@example3.com",
+    "password": "password"
+}
+
+### Get User
+GET {{baseUrl}}/api/v1/users/5206c6e2-2112-4f0b-bc62-72097e5cc33b
+Authorization: Bearer {{accessToken}}
+
+### Get User Pagination
+GET {{baseUrl}}/api/v1/users/page?limit=2&page=1
+Authorization: Bearer {{accessToken}}
+
+### Update User
+PUT {{baseUrl}}/api/v1/users/5206c6e2-2112-4f0b-bc62-72097e5cc33b
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "name": "John Doe Update"
+}
+
+### Get User Pagination
+DELETE {{baseUrl}}/api/v1/users/2
+Authorization: Bearer {{accessToken}}
