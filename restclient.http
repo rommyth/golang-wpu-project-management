@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZTMuY29tIiwiZXhwIjoxNzY0MDAzNzE5LCJwdWJfaWQiOiI1MjA2YzZlMi0yMTEyLTRmMGItYmM2Mi03MjA5N2U1Y2MzM2IiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjJ9.G6xriCdY7Vjlvkg0kZVuAhok_XwUKM2tSouPL9BP_6w
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZTMuY29tIiwiZXhwIjoxNzY0MDc5MDYwLCJwdWJfaWQiOiI5MGViZTlkYy00YWE0LTQ4YWUtYjYwNy05YzY3MTRjMGI1OTMiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjJ9.6S9gBeHYVQHV1Qx5q25Ojg09QooyUf7SUL0am0SETD4
 ### Register
 POST {{baseUrl}}/v1/auth/register
 Content-Type: application/json
@@ -40,3 +40,25 @@ Authorization: Bearer {{accessToken}}
 ### Get User Pagination
 DELETE {{baseUrl}}/api/v1/users/2
 Authorization: Bearer {{accessToken}}
+
+### Create Board
+POST {{baseUrl}}/api/v1/boards
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "title": "Board 5",
+    "description": "Deskripsi board 5",
+    "due_date": "2025-12-31T15:04:00+07:00"
+}
+
+### Update Board
+PUT {{baseUrl}}/api/v1/boards/83d8d4db-cb10-419a-afa5-bdefc7d9230c
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "title": "Board 4 Update 2",
+    "description": "Deskripsi board 4 update 2",
+    "due_date": "2025-12-31T15:04:00+07:00"
+}

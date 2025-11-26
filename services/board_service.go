@@ -1,11 +1,17 @@
 package services
 
 import (
+	"errors"
 	"project-management/models"
 	"project-management/repositories"
+
+	"github.com/google/uuid"
 )
 
 type BoardService interface {
+	Create(board *models.Board) error
+	Update(board *models.Board) error
+	GetByPublicID(publicID string) (*models.Board, error)
 }
 
 type boardService struct {
@@ -25,5 +31,35 @@ func NewBoardService(
 }
 
 func (s *boardService) Create(board *models.Board) error {
+	user, err := s.userRepo.FindByPublicID(board.OwnerPublicID.String())
+	if err != nil {
+		return errors.New("owner not found")
+	}
+	board.PublicID = uuid.New()
+	board.OwnerID = user.InternalID
 	return s.boardRepo.Create(board)
+}
+
+func (s *boardService) Update(board *models.Board) error {
+	return s.boardRepo.Update(board)
+}
+
+func (s *boardService) GetByPublicID(publicID string) (*models.Board, error) {
+	return s.boardRepo.FindByPublicID(publicID)
+}
+
+func (s *boardService) AddMembers(boardPublicID string, userPublicIDs []string) error {
+	board, err := s.boardRepo.FindByPublicID(boardPublicID)
+	if err != nil {
+		return errors.New("board not found")
+	}
+
+	var userInternalIDs []uint
+	for _, userPublicID := range userPublicIDs {
+		user, err := s.userRepo.FindByPublicID(userPublicID)
+		if err != nil {
+			return errors.New("user not found: " + userPublicID)
+		}
+		userInternalIDs = append(userInternalIDs, uint(user.InternalID))
+	}
 }
