@@ -1,12 +1,12 @@
 @baseUrl = http://localhost:3000
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZTMuY29tIiwiZXhwIjoxNzY0MDc5MDYwLCJwdWJfaWQiOiI5MGViZTlkYy00YWE0LTQ4YWUtYjYwNy05YzY3MTRjMGI1OTMiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjJ9.6S9gBeHYVQHV1Qx5q25Ojg09QooyUf7SUL0am0SETD4
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG40QGV4YW1wbGUuY29tIiwiZXhwIjoxNzY0NTgyMDE5LCJwdWJfaWQiOiI0ODdmOGRkZi1iZTU3LTQzMTItOGY4ZS04OWY5ODgyYTllZDMiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjN9._5QCu60VlQkKC5cZKzJLm3B93dSWXJWMYlJ-ayKivDc
 ### Register
 POST {{baseUrl}}/v1/auth/register
 Content-Type: application/json
 
 {
-    "name": "John Doe 3",
-    "email": "john@example3.com",
+    "name": "John Doe 6",
+    "email": "john6@example.com",
     "password": "password",
     "role": "user"
 }
@@ -16,7 +16,7 @@ POST {{baseUrl}}/v1/auth/login
 Content-Type: application/json
 
 {    
-    "email": "john@example3.com",
+    "email": "john4@example.com",
     "password": "password"
 }
 
@@ -47,8 +47,8 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-    "title": "Board 5",
-    "description": "Deskripsi board 5",
+    "title": "Board 4",
+    "description": "Deskripsi board 4",
     "due_date": "2025-12-31T15:04:00+07:00"
 }
 
@@ -62,3 +62,27 @@ Authorization: Bearer {{accessToken}}
     "description": "Deskripsi board 4 update 2",
     "due_date": "2025-12-31T15:04:00+07:00"
 }
+
+### Add Board Members
+POST {{baseUrl}}/api/v1/boards/c07cc85b-06cd-43e5-8b87-a2c39e98852b/members
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+[
+    "0ec9b470-45c8-4daa-9778-7a1592e00e0a",
+    "6350ec60-8118-47ca-95dd-39f4d9371f7a",
+    "cc32fcc1-f42c-47e7-aa12-f448b05d062b"
+]
+
+### Remove Board Members
+DELETE {{baseUrl}}/api/v1/boards/c07cc85b-06cd-43e5-8b87-a2c39e98852b/members
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+[
+    "0ec9b470-45c8-4daa-9778-7a1592e00e0a"
+]
+
+### Get My Board Pagination
+GET {{baseUrl}}/api/v1/boards/my/page?limit=2&page=1
+Authorization: Bearer {{accessToken}}
