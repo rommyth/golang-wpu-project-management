@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG40QGV4YW1wbGUuY29tIiwiZXhwIjoxNzY0NTgyMDE5LCJwdWJfaWQiOiI0ODdmOGRkZi1iZTU3LTQzMTItOGY4ZS04OWY5ODgyYTllZDMiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjN9._5QCu60VlQkKC5cZKzJLm3B93dSWXJWMYlJ-ayKivDc
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG40QGV4YW1wbGUuY29tIiwiZXhwIjoxNzY0NzcyNDgyLCJwdWJfaWQiOiI0ODdmOGRkZi1iZTU3LTQzMTItOGY4ZS04OWY5ODgyYTllZDMiLCJyb2xlIjoidXNlciIsInVzZXJfaWQiOjN9.ED2kDUdf2UiwRiHPxSueCjrW07jgvIXkj-3pr3C3Cl4
 ### Register
 POST {{baseUrl}}/v1/auth/register
 Content-Type: application/json
@@ -86,3 +86,13 @@ Authorization: Bearer {{accessToken}}
 ### Get My Board Pagination
 GET {{baseUrl}}/api/v1/boards/my/page?limit=2&page=1
 Authorization: Bearer {{accessToken}}
+
+### Create List
+POST {{baseUrl}}/api/v1/lists
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "title": "List 1",
+    "board_public_id": "c07cc85b-06cd-43e5-8b87-a2c39e98852b"
+}
